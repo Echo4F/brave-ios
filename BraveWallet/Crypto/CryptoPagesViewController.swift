@@ -87,7 +87,8 @@ class CryptoPagesViewController: TabbedPageViewController {
       rootView: AssetSearchView(
         tokenRegistry: BraveCoreMain.ercTokenRegistry,
         keyringStore: walletStore.keyringStore,
-        networkStore: walletStore.networkStore
+        networkStore: walletStore.networkStore,
+        assetAction: .all
       )
     )
     present(controller, animated: true)
@@ -103,7 +104,16 @@ class CryptoPagesViewController: TabbedPageViewController {
         guard let self = self else { return }
         switch action {
         case .buy:
-          break
+          let controller = UIHostingController(
+            rootView: BuyCryptoView(
+              tokenRegistry: BraveCoreMain.ercTokenRegistry,
+              keyringStore: self.walletStore.keyringStore,
+              networkStore: self.walletStore.networkStore
+            )
+          )
+          self.dismiss(animated: true) {
+            self.present(controller, animated: true)
+          }
         case .send:
           break
         case .swap:

@@ -39,6 +39,13 @@ struct AssetSearchView: View {
   @State private var allTokens: [BraveWallet.ERCToken] = []
   @State private var query = ""
   
+  enum Action {
+    case all
+    case buy
+  }
+  
+  var assetAction: Action
+  
   private var tokens: [BraveWallet.ERCToken] {
     let query = query.lowercased()
     if query.isEmpty {
@@ -51,36 +58,67 @@ struct AssetSearchView: View {
   }
   
   var body: some View {
-    NavigationView {
-      List {
-        Section(
-          header: WalletListHeaderView(
-            title: Text("Assets") // NSLocalizedString
-          )
-          .osAvailabilityModifiers { content in
-            if #available(iOS 15.0, *) {
-              content // Padding already applied
+    switch assetAction {
+    case .all:
+      NavigationView {
+        buildCommon()
+          .navigationBarTitleDisplayMode(.inline)
+          .introspectViewController { vc in
+            // TODO: In iOS 15, use `toolbar` & `presentationMode` now that PresentationMode is passed to
+            //       SwiftUI when presented from UIKit
+            vc.navigationItem.leftBarButtonItem = .init(systemItem: .cancel, primaryAction: .init(handler: { [unowned vc] _ in
+              vc.dismiss(animated: true)
+            }))
+          }
+      }
+      .navigationViewStyle(StackNavigationViewStyle())
+      .onAppear {
+        tokenRegistry.allTokens { tokens in
+          self.allTokens = tokens.sorted(by: { $0.symbol < $1.symbol })
+        }
+      }
+    case .buy:
+      buildCommon()
+      .onAppear {
+        tokenRegistry.buyTokens { tokens in
+          self.allTokens = tokens.sorted(by: { $0.symbol < $1.symbol })
+        }
+      }
+    }
+  }
+  
+  private func buildCommon() -> some View {
+    List {
+      Section(
+        header: WalletListHeaderView(
+          title: Text("Assets") // NSLocalizedString
+        )
+        .osAvailabilityModifiers { content in
+          if #available(iOS 15.0, *) {
+            content // Padding already applied
+          } else {
+            content
+              .padding(.top)
+          }
+        }
+      ) {
+        let tokens = self.tokens
+        if tokens.isEmpty {
+          Group {
+            if query.isEmpty {
+              Text("No assets found") // NSLocalizedString
             } else {
-              content
-                .padding(.top)
+              Text("No assets found for \"\(query)\" query") // NSLocalizedString
             }
           }
-        ) {
-          let tokens = self.tokens
-          if tokens.isEmpty {
-            Group {
-              if query.isEmpty {
-                Text("No assets found") // NSLocalizedString
-              } else {
-                Text("No assets found for \"\(query)\" query") // NSLocalizedString
-              }
-            }
-            .font(.footnote)
-            .foregroundColor(Color(.secondaryBraveLabel))
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: .infinity)
-          } else {
-            ForEach(tokens) { token in
+          .font(.footnote)
+          .foregroundColor(Color(.secondaryBraveLabel))
+          .multilineTextAlignment(.center)
+          .frame(maxWidth: .infinity)
+        } else {
+          ForEach(tokens) { token in
+            switch assetAction {
+            case .all:
               NavigationLink(
                 destination: AssetDetailView(
                   keyringStore: keyringStore,
@@ -90,29 +128,17 @@ struct AssetSearchView: View {
               ) {
                 TokenView(token: token)
               }
+            case .buy:
+              TokenView(token: token)
             }
           }
         }
-        .listRowBackground(Color(.secondaryBraveGroupedBackground))
       }
-      .navigationBarTitleDisplayMode(.inline)
-      .navigationTitle("Search") // NSLocalizedString
-      .listStyle(InsetGroupedListStyle())
-      .animation(nil, value: query)
-      .filterable(text: $query)
-      .introspectViewController { vc in
-        // TODO: In iOS 15, use `toolbar` & `presentationMode` now that PresentationMode is passed to
-        //       SwiftUI when presented from UIKit
-        vc.navigationItem.leftBarButtonItem = .init(systemItem: .cancel, primaryAction: .init(handler: { [unowned vc] _ in
-          vc.dismiss(animated: true)
-        }))
-      }
+      .listRowBackground(Color(.secondaryBraveGroupedBackground))
     }
-    .navigationViewStyle(StackNavigationViewStyle())
-    .onAppear {
-      tokenRegistry.allTokens { tokens in
-        self.allTokens = tokens.sorted(by: { $0.symbol < $1.symbol })
-      }
-    }
+    .navigationTitle("Search") // NSLocalizedString
+    .listStyle(InsetGroupedListStyle())
+    .animation(nil, value: query)
+    .filterable(text: $query)
   }
 }

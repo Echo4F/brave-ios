@@ -899,6 +899,7 @@
 		7BA8D1C71BA037F500C8AE9E /* OpenInHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA8D1C61BA037F500C8AE9E /* OpenInHelper.swift */; };
 		7BBFEE741BB405D900A305AA /* TabManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBFEE731BB405D900A305AA /* TabManagerTests.swift */; };
 		7BEFC6801BFF68C30059C952 /* QuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFC67F1BFF68C30059C952 /* QuickActions.swift */; };
+		7D7588C1271382E900B643C3 /* BuyCryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7588C0271382E900B643C3 /* BuyCryptoView.swift */; };
 		A104E199210A384400D2323E /* ShieldsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104E198210A384400D2323E /* ShieldsViewController.swift */; };
 		A134B88A20DA98BB00A581D0 /* ClientPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134B88920DA98BB00A581D0 /* ClientPreferences.swift */; };
 		A13AC72520EC12360040D4BB /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13AC72420EC12360040D4BB /* Migration.swift */; };
@@ -2718,6 +2719,7 @@
 		7BA8D1C61BA037F500C8AE9E /* OpenInHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInHelper.swift; sourceTree = "<group>"; };
 		7BBFEE731BB405D900A305AA /* TabManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabManagerTests.swift; sourceTree = "<group>"; };
 		7BEFC67F1BFF68C30059C952 /* QuickActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActions.swift; sourceTree = "<group>"; };
+		7D7588C0271382E900B643C3 /* BuyCryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoView.swift; sourceTree = "<group>"; };
 		A104E198210A384400D2323E /* ShieldsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldsViewController.swift; sourceTree = "<group>"; };
 		A134B88920DA98BB00A581D0 /* ClientPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientPreferences.swift; sourceTree = "<group>"; };
 		A13AC72420EC12360040D4BB /* Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
@@ -3627,6 +3629,7 @@
 			children = (
 				271F685826EBD27D00AA2A50 /* SwapCryptoView.swift */,
 				2729E7D226F502AC00200648 /* AccountPicker.swift */,
+				7D7588C0271382E900B643C3 /* BuyCryptoView.swift */,
 			);
 			path = BuySwapSwap;
 			sourceTree = "<group>";
@@ -7362,6 +7365,7 @@
 				271F68A126EBD27E00AA2A50 /* AccountsHeaderView.swift in Sources */,
 				271F68AB26EBD27E00AA2A50 /* AssetDetailView.swift in Sources */,
 				271F68C026EBD27E00AA2A50 /* WalletTableViewHeaderView.swift in Sources */,
+				7D7588C1271382E900B643C3 /* BuyCryptoView.swift in Sources */,
 				271F68A726EBD27E00AA2A50 /* BackupNotifyView.swift in Sources */,
 				2729E7D326F502AC00200648 /* AccountPicker.swift in Sources */,
 				271F68A426EBD27E00AA2A50 /* AccountsView.swift in Sources */,
